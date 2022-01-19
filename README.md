@@ -31,8 +31,11 @@ start](https://openweathermap.org/appid) page.
 
 ## Functions
 
-The functions are as follows: - `get_air_pollution()` -
-`get_pollution_history()` - `get_pollution_forecast()`
+The functions are as follows:
+
+-   `get_air_pollution()`
+-   `get_pollution_history()`
+-   `get_pollution_forecast()`
 
 ### `get_air_pollution()`
 

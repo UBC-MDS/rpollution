@@ -22,6 +22,7 @@ For more information about API call limits and API care recommendations please v
 
 ## Functions
 The functions are as follows:
+
 - `get_air_pollution()`
 - `get_pollution_history()`
 - `get_pollution_forecast()`
