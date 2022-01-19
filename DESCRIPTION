@@ -2,9 +2,9 @@ Package: rpollution
 Title: Visualises future, historic and current air pollution data
 Version: 0.0.0.9000
 Authors@R: c(
-    person("Christopher", "Alexander", , "christopher.a0@gmail.com", role = c("aut", "cre")),
+    person("Christopher", "Alexander", , "christopher.a0@gmail.com", role = c("aut")),
     person("Daniel", "King", , "dnlkng13@gmail.com", role = c("aut", "cre")),
-    person("Mel", "Liow", , "mel.liow.94@gmail.com", role = c("aut", "cre")))
+    person("Mel", "Liow", , "mel.liow.94@gmail.com", role = c("aut")))
 Description: This package enables users to explore air pollution levels in
     locations around the world. Using the Air Pollution API, this package provides
     3 functions that help to visualise present, future and historic air pollution
