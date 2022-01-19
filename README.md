@@ -75,9 +75,10 @@ devtools::install_github("UBC-MDS/rpollution")
 
 ## Contributing
 
-Interested in contributing? Check out the contributing guidelines.
-Please note that this project is released with a Code of Conduct. By
-contributing to this project, you agree to abide by its terms.
+Interested in contributing? Check out the contributing guidelines.Please
+note that the rpollution project is released with a [Contributor Code of
+Conduct](https://github.com/UBC-MDS/rpollution/blob/master/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.
 
 Contributors - Christopher Alexander (@christopheralex) - Daniel King
 (@danfke) - Mel Liow (@mel-liow)
