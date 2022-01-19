@@ -84,5 +84,5 @@ Contributors - Christopher Alexander (@christopheralex) - Daniel King
 
 ## License
 
-`airpyllution` was created by Christopher Alexander, Daniel King, Mel
+`rpollution` was created by Christopher Alexander, Daniel King, Mel
 Liow. It is licensed under the terms of the MIT license.
