@@ -13,7 +13,7 @@
 #' @param lon Longitude coordinate for a given location as a float
 #' @param api_key The API key (string) for OpenWeather
 #' #'
-#' @return A tibble
+#' @return A tibble dataframe containing the historic data of pollution levels
 #' @export
 #'
 #' @examples
