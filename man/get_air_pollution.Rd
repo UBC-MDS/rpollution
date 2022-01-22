@@ -7,9 +7,9 @@
 get_air_pollution(lat, lon, api_key, fig_title)
 }
 \arguments{
-\item{lat}{Latitude for a given location as a float/integer}
+\item{lat}{Latitude for a given location as a double}
 
-\item{lon}{Longitude for a given location as a float/integer}
+\item{lon}{Longitude for a given location as a double}
 
 \item{api_key}{The API key for OpenWeather as a string}
 
