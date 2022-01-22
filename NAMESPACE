@@ -2,3 +2,4 @@
 
 export(get_air_pollution)
 export(get_pollution_history)
+export(get_pollution_forecast)
