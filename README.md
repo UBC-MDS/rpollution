@@ -57,10 +57,11 @@ Fetches air pollution data for the next 5 days for a specific location.
 The function returns a time series plot of the predicted pollution
 levels.
 
-TO ADD: a paragraph describing where your packages fit into the R
-ecosystem (are there any other R packages that have the same/similar
-functionality? Provide links to any that do. If none exist, then clearly
-state this as well).
+Although there is an abundance of R weather packages and APIs in the R
+ecosystem (e.g. owmr, ROpenWeatherMap), this particular package looks at
+specifically air pollution data and uses the Air Pollution API from
+OpenWeather. This is a unique package with functionality that (we
+believe) has not been made before.
 
 ## Installation
 
