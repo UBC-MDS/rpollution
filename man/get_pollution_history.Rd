@@ -19,7 +19,7 @@ get_pollution_history(start_date, end_date, lat, lon, api_key)
 \item{api_key}{The API key for OpenWeather as a string}
 }
 \value{
-tibble with data containing pollution history
+data frame containing pollution history
 }
 \description{
 Given a specified date range, the function makes an API request
