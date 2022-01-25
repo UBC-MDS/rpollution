@@ -65,7 +65,5 @@ get_pollution_history <- function(start_date, end_date, lat, lon, api_key) {
      message("An error occurred fetching data from the API: ", e)
    })
 
-
-
   as_tibble(data$list)
 }
