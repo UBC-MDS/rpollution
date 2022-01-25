@@ -55,7 +55,6 @@ get_pollution_forecast <- function(lat, lon, api_key) {
                        flatten = TRUE
                        )
       data <- data$list
-      data
     },
     error = function(e) {
       e
@@ -104,6 +103,6 @@ get_pollution_forecast <- function(lat, lon, api_key) {
     }
   }
   else{
-    api_error
+    "An error occurred fetching data from the API"
   }
 }
