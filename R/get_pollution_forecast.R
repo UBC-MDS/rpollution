@@ -103,8 +103,6 @@ get_pollution_forecast <- function(lat, lon, api_key) {
     }
   }
   else{
-    print('HERE????')
-    print(api_error)
     "An error occurred fetching data from the API"
   }
 }
