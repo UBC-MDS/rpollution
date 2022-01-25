@@ -1,3 +1,9 @@
+#' @import jsonlite
+#' @import httr
+library(jsonlite)
+library(httr)
+library(ggplot2)
+
 #' Returns a time series plot showing predicted pollutant levels for the next 5 days.
 #'
 #' Performs an API request to OpenWeather Air Pollution API,
@@ -36,9 +42,9 @@ get_pollution_forecast <- function(lat, lon, api_key) {
   query <- list(lat = lat,
                 lon = lon,
                 appid = api_key
-                )
+  )
 
-  tryCatch(
+  api_error <- tryCatch(
     {
       res <- GET(api_url, query = query)
 
@@ -47,47 +53,57 @@ get_pollution_forecast <- function(lat, lon, api_key) {
 
       data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
                        flatten = TRUE
-      )
-
+                       )
       data <- data$list
+      data
     },
     error = function(e) {
-      "An error occurred fetching data from the API"
-    }
-  )
-  if(nrow(data) > 1){
-    tryCatch(
-      {
-        data$dt <- as.POSIXct(as.numeric(as.character(d$dt)), origin="1970-01-01", tz="GMT")
-        colnames(data) <- c('dt', 'main.api','co', 'no', 'no2', 'o3', 'so2',
-                         'pm2_5', 'pm10', 'nh3')
-
-        data <- tidyr::pivot_longer(data = d,
-                                 cols = c('co', 'no', 'no2', 'o3', 'so2',
-                                          'pm2_5', 'pm10', 'nh3'),
-                                 names_to = "Pollutants",
-                                 values_to = "Concentration")
-
-        chart <- ggplot2::ggplot(d) + aes(
-          x = dt,
-          y = Concentration,
-          color = Pollutants) + geom_line() +
-          labs(
-            x = "Date time",
-            y = "Concentration",
-            color = "Pollutants",
-            title = "Pollutant concentration for the next 5 days"
-          ) +
-          facet_wrap(~Pollutants, scales = 'free')
-      },
-      error = function(e) {
-        "An error occured in plotting"
+      e
       }
     )
-    return(chart)
+  if(!inherits(api_error, "error")){
+    if(nrow(data) > 1){
+      chart_error <- tryCatch(
+        {
+          data$dt <- as.POSIXct(as.numeric(as.character(data$dt)), origin="1970-01-01", tz="GMT")
+          colnames(data) <- c('dt', 'main.aqi','co', 'no', 'no2', 'o3', 'so2',
+                              'pm2_5', 'pm10', 'nh3')
+
+          data <- tidyr::pivot_longer(data = data,
+                                      cols = c('co', 'no', 'no2', 'o3', 'so2',
+                                               'pm2_5', 'pm10', 'nh3'),
+                                      names_to = "Pollutants",
+                                      values_to = "Concentration")
+
+          chart <- ggplot2::ggplot(data, aes(
+            x = dt,
+            y = Concentration,
+            color = Pollutants)) + geom_line() +
+            labs(
+              x = "Date time",
+              y = "Concentration",
+              color = "Pollutants",
+              title = "Pollutant concentration for the next 5 days"
+            ) + facet_wrap(~Pollutants, scales = 'free')
+
+        },
+        error = function(er) {
+          er
+          }
+        )
+      if(!inherits(chart_error,"error")){
+        return(chart)
+      }
+      else{
+        print(chart)
+        stop("An error occured in plotting")
+      }
+      }
+    else{
+      stop("Insufficient data to forecast/plot.")
+    }
   }
   else{
-    stop("Insufficient data to forecast/plot.")
+    api_error
   }
-
 }
