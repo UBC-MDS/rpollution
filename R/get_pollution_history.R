@@ -1,3 +1,9 @@
+#' @import jsonlite
+#' @import httr
+library(jsonlite)
+library(httr)
+library(tidyverse)
+
 #' Returns a dataframe of pollution history for a location between
 #' a specified date range.
 #'
@@ -20,4 +26,46 @@
 #' get_pollution_history(1606488670, 1606747870, 49.28, 123.12, "APIKEY_example")
 get_pollution_history <- function(start_date, end_date, lat, lon, api_key) {
 
+  if(!is.numeric(start_date)) {
+    stop("start_date input should be an int")
+  }
+
+  if( !is.numeric(end_date) | end_date != round(end_date)) {
+    stop("end_date input should be an int")
+  }
+
+  if(!is.numeric(lat)) {
+    stop("latitude input should be a float or an integer")
+  }
+
+  if(!is.numeric(lon)) {
+    stop("longitude input should be a float or an integer")
+  }
+
+
+  api_url <- "http://api.openweathermap.org/data/2.5/air_pollution/history?"
+
+  query <- list(lat = lat,
+                lon = lon,
+                start = start_date,
+                end = end_date,
+                appid = api_key
+                )
+
+  tryCatch({
+    res <- GET(api_url, query = query)
+
+    # Stop if response status is not 200
+    httr::stop_for_status(res)
+
+    data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
+                     flatten = TRUE)
+  },
+   error = function(e){
+     message("An error occurred fetching data from the API: ", e)
+   })
+
+
+
+  as_tibble(data$list)
 }
