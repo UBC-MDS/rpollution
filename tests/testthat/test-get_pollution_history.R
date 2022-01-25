@@ -1,13 +1,10 @@
 library(httptest)
 
-context("get pollution history")
-
 #' Tests get_pollution_history function with mock http requests
 with_mock_api({
   test_that("Function returns air pollution history as a tibble", {
     data <- get_pollution_history(1606488670,1606747870, 49.28 , 123.12,
                                   "api_key")
-    expect_true(is_tibble(data))
     expect_equal(colnames(data), c("dt",
                                   "main.aqi",
                                   "components.co",
@@ -21,12 +18,6 @@ with_mock_api({
   })
 
   test_that("Function returns a failing API error", {
-    m <- get_pollution_history(1606487670,
-                               1606747870,
-                               49.28 ,
-                               123.12,
-                               "error_api_key")
-    print(m)
     expect_equal(get_pollution_history(1606487670,
                                        1606747870,
                                        49.28 ,
