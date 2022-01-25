@@ -20,6 +20,21 @@ with_mock_api({
                                   "components.nh3"))
   })
 
+  test_that("Function returns a failing API error", {
+    m <- get_pollution_history(1606487670,
+                               1606747870,
+                               49.28 ,
+                               123.12,
+                               "error_api_key")
+    print(m)
+    expect_equal(get_pollution_history(1606487670,
+                                       1606747870,
+                                       49.28 ,
+                                       123.12,
+                                       "error_api_key"),
+                 "An error occurred fetching data from the API")
+  })
+
   test_that("Errors are thrown with incorrect inputs", {
     expect_error(get_pollution_history("start_date",
                                        1606747870,

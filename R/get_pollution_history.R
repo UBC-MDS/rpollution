@@ -60,10 +60,10 @@ get_pollution_history <- function(start_date, end_date, lat, lon, api_key) {
 
     data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
                      flatten = TRUE)
+
+    as_tibble(data$list)
   },
    error = function(e){
-     message("An error occurred fetching data from the API: ", e)
+     "An error occurred fetching data from the API"
    })
-
-  as_tibble(data$list)
 }
