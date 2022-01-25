@@ -94,7 +94,6 @@ get_pollution_forecast <- function(lat, lon, api_key) {
         return(chart)
       }
       else{
-        print(chart)
         stop("An error occured in plotting")
       }
       }
