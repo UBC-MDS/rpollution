@@ -1,5 +1,6 @@
 #' @import jsonlite
 #' @import httr
+#' @import ggplot2
 library(jsonlite)
 library(httr)
 library(ggplot2)

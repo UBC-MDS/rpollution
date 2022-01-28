@@ -1,6 +1,8 @@
 #' @import jsonlite
-#' @import httr
 #' @import plotly
+#' @import httr
+#' @import tibble
+#' @import tidyr
 library(jsonlite)
 library(httr)
 library(plotly)
@@ -66,9 +68,9 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
       raw_data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
                            flatten = TRUE)
 
-      data <- tibble(raw_data[["list"]]) |>
-        mutate(lon = raw_data$coord$lon, lat = raw_data$coord$lat) |>
-        select(-dt, -main.aqi) |>
+      data <- tibble(raw_data[["list"]]) %>%
+        mutate(lon = raw_data$coord$lon, lat = raw_data$coord$lat) %>%
+        select(-dt, -main.aqi) %>%
         rename(
           CO = components.co,
           NO = components.no,
@@ -78,7 +80,7 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
           NH3 = components.nh3,
           NO2 = components.no2,
           O3 = components.o3
-        ) |>
+        ) %>%
         pivot_longer(c(CO, NO, NO2, O3, SO2, PM2.5, PM10, NH3))
 
       g <- list(
@@ -105,7 +107,7 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
         hoverinfo= "text"
       )
 
-      fig <- fig |>
+      fig <- fig %>%
         layout(title = list(
           text = fig_title,
           x= 0,
