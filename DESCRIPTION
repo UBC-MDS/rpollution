@@ -23,4 +23,6 @@ Config/testthat/edition: 3
 Imports: 
     tidyr,
     ggplot2,
-    httptest
+    httptest,
+    plotly,
+    tibble
