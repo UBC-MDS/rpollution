@@ -9,23 +9,29 @@ with_mock_api({
       api_key = "api_key",
       fig_title = "Air pollution"
     )
-  # #
-  #   # print(fig)
-  #
-  # fig
-  #
-    expect_equal(fig[['x']][['layout']]['mapType'],"geo")
 
-  #   expect_equal(nrow(chart$data), 16)
-  #   expect_equal(chart$labels$x, "Date time")
-  #   expect_equal(chart$labels$y, "Concentration")
-  #   expect_equal(chart$labels$colour, "Pollutants")
-  #   expect_equal(
-  #     chart$labels$title,
-  #     "Pollutant concentration for the next 5 days"
-  #   )
+    fig_id <- fig[['x']][["cur_data"]]
+
+    # Check that a plotly object is returned
+    expect_equal(class(fig)[1],"plotly")
+
+    # Check that the plot is a geographic scatter plot
+    expect_equal(fig[['x']][['layout']][['mapType']],"geo")
+
+    # Check that the plot title is correct
+    expect_equal(
+      fig[["x"]][["layoutAttrs"]][[fig_id]][["title"]][["text"]],
+      "Air pollution"
+    )
+
+    #Check that the legend title is correct
+    expect_equal(
+      fig[["x"]][["layoutAttrs"]][[fig_id]][["legend"]][["title"]][["text"]],
+      "Pollutant"
+    )
+
   })
-  #
+
   test_that("Function returns a failing API error", {
     expect_equal(
       get_air_pollution(
@@ -73,6 +79,17 @@ with_mock_api({
         "api_key"
       ),
       "Enter valid longitude values (Range should be -180<Longitude<180)",
+      fixed = TRUE
+    )
+
+    expect_error(
+      get_air_pollution(
+        50,
+        50,
+        "api_key",
+        123
+      ),
+      "Figure title should be a string",
       fixed = TRUE
     )
 

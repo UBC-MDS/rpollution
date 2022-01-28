@@ -44,6 +44,10 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
     stop("Enter valid longitude values (Range should be -180<Longitude<180)")
   }
 
+  if (!is.character(fig_title)){
+    stop("Figure title should be a string")
+  }
+
   api_url <- "http://api.openweathermap.org/data/2.5/air_pollution"
 
   query <- list(
@@ -62,7 +66,7 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
       raw_data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
                            flatten = TRUE)
 
-      data <- tibble(raw_data$list) |>
+      data <- tibble(raw_data[["list"]]) |>
         mutate(lon = raw_data$coord$lon, lat = raw_data$coord$lat) |>
         select(-dt, -main.aqi) |>
         rename(
@@ -113,14 +117,15 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
         ),
         legend = list(
           yanchor = "center",
-          y = 0.5
+          y = 0.5,
+          title = list(text = "Pollutant")
         )
         )
 
       fig
     },
     error = function(e) {
-      print(e)
+      "An error occurred fetching data from the API"
     }
   )
 }
