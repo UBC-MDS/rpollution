@@ -18,12 +18,12 @@ library(tidyr)
 #' @param api_key The API key for OpenWeather as a string
 #' @param fig_title The title of the returned ggplot as a string
 #'
-#' @return ggplot object
+#' @return plotly object
 #' @export
 #'
 #' @examples
-#' get_air_pollution(49.28, 123.12, "APIKEY_example", "example_title")
-get_air_pollution <- function(lat, lon, api_key, fig_title) {
+#' get_air_pollution(49.28, 123.12, "APIKEY_example", "example title")
+get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
   if (!is.numeric(lat)) {
     stop("latitude input should be a float or an integer")
   }
@@ -52,109 +52,70 @@ get_air_pollution <- function(lat, lon, api_key, fig_title) {
     appid = api_key
   )
 
-  res <- GET(api_url, query = query)
-  raw_data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
-                   flatten = TRUE)
-  data <- tibble(raw_data$list) |>
-    mutate(lon = raw_data$coord$lon, lat = raw_data$coord$lat) |>
-    select(-dt, -main.aqi) |>
-    rename(
-      CO = components.co,
-      NO = components.no,
-      SO2 = components.so2,
-      PM2.5 = components.pm2_5,
-      PM10 = components.pm10,
-      NH3 = components.nh3,
-      NO2 = components.no2,
-      O3 = components.o3
-    ) |>
-    pivot_longer(c(CO, NO, NO2, O3, SO2, PM2.5, PM10, NH3))
+  tryCatch(
+    {
+      res <- GET(api_url, query = query)
+      raw_data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
+                           flatten = TRUE)
+      data <- tibble(raw_data$list) |>
+        mutate(lon = raw_data$coord$lon, lat = raw_data$coord$lat) |>
+        select(-dt, -main.aqi) |>
+        rename(
+          CO = components.co,
+          NO = components.no,
+          SO2 = components.so2,
+          PM2.5 = components.pm2_5,
+          PM10 = components.pm10,
+          NH3 = components.nh3,
+          NO2 = components.no2,
+          O3 = components.o3
+        ) |>
+        pivot_longer(c(CO, NO, NO2, O3, SO2, PM2.5, PM10, NH3))
 
-  g <- list(
-    # scope = 'usa',
-    projection = list(type = 'natural earth'),
-    showland = TRUE,
-    landcolor = toRGB("gray95"),
-    subunitcolor = toRGB("gray85"),
-    countrycolor = toRGB("gray85"),
-    countrywidth = 0.5,
-    subunitwidth = 0.5
+      g <- list(
+        projection = list(type = 'natural earth')
+      )
+
+      fig <- plot_geo(data, lat = ~lat, lon = ~lon)
+      fig <- fig %>% add_markers(
+        color = ~name,
+        size = ~value,
+        text = ~paste(
+          "Pollutant =",
+          name,
+          "\n",
+          "Conc. (µg/m^3) =",
+          value,
+          "\n",
+          "Latitude =",
+          lat,
+          "\n",
+          "Longitude =",
+          lon
+        ),
+        hoverinfo= "text"
+      )
+
+      fig <- fig |>
+        layout(title = list(
+          text = fig_title,
+          x= 0,
+          y = 1,
+          xref = "paper",
+          yref = "paper",
+          yanchor = "bottom",
+          xanchor = "left"
+        ),
+        legend = list(
+          yanchor = "center",
+          y = 0.5
+        )
+        )
+
+      fig
+    },
+    error = function(e) {
+      "An error occurred fetching data from the API"
+    }
   )
-
-  fig <- plot_geo(data, lat = ~lat, lon = ~lon)
-  fig <- fig %>% add_markers(
-    color = ~name, size = ~value
-  )
-  # fig <- fig %>% colorbar(title = "Incoming flights<br />February 2011")
-  # fig <- fig %>% layout(
-  #   title = 'Most trafficked US airports<br />(Hover for airport)', geo = g
-  # )
-
-  fig
-
-  # tryCatch(
-  #   {
-  #     res <- GET(api_url, query = query)
-  #
-  #     # Stop if response status is not 200
-  #     httr::stop_for_status(res)
-  #
-  #     data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
-  #                      flatten = TRUE
-  #     )
-  #
-  #     data = tibble(data$list)
-  #     data
-  #   },
-  #   error = function(e) {
-  #     "An error occurred fetching data from the API"
-  #   }
-  # )
-
-  # data
-
-  # data = data.melt(
-  #   id_vars=["lon", "lat"],
-  #   value_vars=["co", "no", "no2", "o3", "so2", "pm2_5", "pm10", "nh3"],
-  # )
-  #
-  # data = data.replace(
-  #   {
-  #     "co": "CO",
-  #     "no": "NO",
-  #     "no2": "NO2",
-  #     "o3": "O3",
-  #     "so2": "SO2",
-  #     "pm2_5": "PM2.5",
-  #     "pm10": "PM10",
-  #     "nh3": "NH3",
-  #   }
-  # )
-  #
-  # fig = px.scatter_geo(
-  #   data,
-  #   lon="lon",
-  #   lat="lat",
-  #   color="variable",
-  #   size="value",
-  #   projection="natural earth",
-  #   labels={
-  #     "lon": "Longitude",
-  #     "lat": "Latitude",
-  #     "variable": "Pollutant",
-  #     "value": "Conc. (µg/m^3)",
-  #   },
-  #   title=fig_title,
-  # )
-  #
-  # fig.update_layout(
-  #   legend={"yanchor": "middle", "y": 0.72, "xanchor": "right", "x": 1.2},
-  #   title={"y": 0.85, "x": 0.47, "xanchor": "center", "yanchor": "top"},
-  # )
-  #
-  # return fig
-
-
-
-
 }
