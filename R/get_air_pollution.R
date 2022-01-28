@@ -25,24 +25,30 @@ library(tidyr)
 #' get_air_pollution(49.28, 123.12, "APIKEY_example", "example title")
 get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
   if (!is.numeric(lat)) {
-    stop("latitude input should be a float or an integer")
+    stop("Latitude input should be a float or an integer")
   }
 
   if (!is.numeric(lon)) {
-    stop("longitude input should be a float or an integer")
+    stop("Longitude input should be a float or an integer")
   }
 
   if (!is.character(api_key)) {
     stop("API Key should be a string")
   }
 
+  print("HERE!!")
+
   if (lat < -90.0 | lat > 90.0){
     stop("Enter valid latitude values (Range should be -90<Latitude<90)")
   }
 
+  print("HERE AGAIN!!")
+
   if (lon < -180.0 | lon > 180.0){
     stop("Enter valid longitude values (Range should be -180<Longitude<180)")
   }
+
+  print("HERE ONE MORE TIME!!")
 
   api_url <- "http://api.openweathermap.org/data/2.5/air_pollution"
 
