@@ -54,5 +54,26 @@ with_mock_api({
       ),
       "longitude input should be a float or an integer"
     )
+
+    expect_error(
+      get_pollution_forecast(
+        -100,
+        123.12,
+        "api_key"
+      ),
+      "Enter valid latitude values (Range should be -90<Latitude<90)",
+      fixed = TRUE
+    )
+
+    expect_error(
+      get_pollution_forecast(
+        49.28,
+        200,
+        "api_key"
+      ),
+      "Enter valid longitude values (Range should be -180<Longitude<180)",
+      fixed = TRUE
+    )
+
   })
 })
