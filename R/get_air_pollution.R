@@ -36,19 +36,13 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
     stop("API Key should be a string")
   }
 
-  print("HERE!!")
-
   if (lat < -90.0 | lat > 90.0){
     stop("Enter valid latitude values (Range should be -90<Latitude<90)")
   }
 
-  print("HERE AGAIN!!")
-
   if (lon < -180.0 | lon > 180.0){
     stop("Enter valid longitude values (Range should be -180<Longitude<180)")
   }
-
-  print("HERE ONE MORE TIME!!")
 
   api_url <- "http://api.openweathermap.org/data/2.5/air_pollution"
 
@@ -61,8 +55,13 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
   tryCatch(
     {
       res <- GET(api_url, query = query)
+
+      # Stop if response status is not 200
+      httr::stop_for_status(res)
+
       raw_data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
                            flatten = TRUE)
+
       data <- tibble(raw_data$list) |>
         mutate(lon = raw_data$coord$lon, lat = raw_data$coord$lat) |>
         select(-dt, -main.aqi) |>
@@ -121,7 +120,7 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
       fig
     },
     error = function(e) {
-      "An error occurred fetching data from the API"
+      print(e)
     }
   )
 }
