@@ -6,17 +6,19 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-An R package for visualizing or obtaining future, historic and current
-air pollution data using the [OpenWeather
-API](https://openweathermap.org).
+`rpollution` is an R package for visualizing or obtaining future,
+historic and current air pollution data using the [OpenWeather
+API](https://openweathermap.org). Our goal is to enable users the
+ability to explore air pollution levels in locations around the world by
+providing visual charts and graphs. We make the data accessible and easy
+to comprehend in just a few lines of code.
 
-## Summary
-
-This package enables users to explore air pollution levels in locations
-around the world. Using the [Air Pollution
-API](https://openweathermap.org/api/air-pollution), this package
-provides 3 functions that help to visualise present, future and historic
-air pollution data.
+Although there is an abundance of weather packages and APIs in the R
+ecosystem, this particular package looks at specifically air pollution
+data and uses the [Air Pollution
+API](https://openweathermap.org/api/air-pollution) from OpenWeather.
+This is a unique package which provides simple and easy to use functions
+and allows users to quickly access and visualise data.
 
 The data returned from the API includes the polluting gases such as
 Carbon monoxide (CO), Nitrogen monoxide (NO), Nitrogen dioxide (NO2),
@@ -31,7 +33,7 @@ start](https://openweathermap.org/appid) page.
 
 ## Functions
 
-The functions are as follows:
+This package contains 3 functions:
 
 -   `get_air_pollution()`
 -   `get_pollution_history()`
@@ -57,12 +59,6 @@ Fetches air pollution data for the next 5 days for a specific location.
 The function returns a time series plot of the predicted pollution
 levels.
 
-Although there is an abundance of R weather packages and APIs in the R
-ecosystem (e.g. owmr, ROpenWeatherMap), this particular package looks at
-specifically air pollution data and uses the Air Pollution API from
-OpenWeather. This is a unique package with functionality that (we
-believe) has not been made before.
-
 ## Installation
 
 You can install the development version of rpollution from
@@ -75,7 +71,18 @@ devtools::install_github("UBC-MDS/rpollution")
 
 ## Usage
 
--   TODO
+1.  Create an [OpenWeather API Key](https://openweathermap.org/appid)
+2.  Install `rpollution`
+
+To use the package, import the package with following commands:
+
+    library(rpollution)
+
+## Contributors
+
+-   Christopher Alexander (@christopheralex)
+-   Daniel King (@danfke)
+-   Mel Liow (@mel-liow)
 
 ## Contributing
 
@@ -84,12 +91,6 @@ Please note that the rpollution project is released with a [Contributor
 Code of
 Conduct](https://github.com/UBC-MDS/rpollution/blob/master/CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
-
-Contributors
-
--   Christopher Alexander (@christopheralex)
--   Daniel King (@danfke)
--   Mel Liow (@mel-liow)
 
 ## License
 
