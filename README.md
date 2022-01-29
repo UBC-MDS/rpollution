@@ -74,7 +74,7 @@ devtools::install_github("UBC-MDS/rpollution")
 1.  Create an [OpenWeather API Key](https://openweathermap.org/appid)
 2.  Install `rpollution`
 
-To use the package, import the package with following commands:
+To use the package, import the package with the following commands:
 
     library(rpollution)
 
