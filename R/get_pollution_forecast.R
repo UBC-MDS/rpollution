@@ -1,10 +1,3 @@
-#' @import jsonlite
-#' @import httr
-#' @import ggplot2
-library(jsonlite)
-library(httr)
-library(ggplot2)
-
 #' Returns a time series plot showing predicted pollutant levels for the next 5 days.
 #'
 #' Performs an API request to OpenWeather Air Pollution API,
@@ -47,12 +40,12 @@ get_pollution_forecast <- function(lat, lon, api_key) {
 
   api_error <- tryCatch(
     {
-      res <- GET(api_url, query = query)
+      res <- httr::GET(api_url, query = query)
 
       # Stop if response status is not 200
       httr::stop_for_status(res)
 
-      data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
+      data <- jsonlite::fromJSON(content(res, as = "text", encoding = "UTF-8"),
                        flatten = TRUE
                        )
       data <- data$list
@@ -75,16 +68,16 @@ get_pollution_forecast <- function(lat, lon, api_key) {
                                       names_to = "Pollutants",
                                       values_to = "Concentration")
 
-          chart <- ggplot2::ggplot(data, aes(
+          chart <- ggplot2::ggplot(data, ggplot2::aes(
             x = dt,
             y = Concentration,
-            color = Pollutants)) + geom_line() +
-            labs(
+            color = Pollutants)) + ggplot2::geom_line() +
+            ggplot2::labs(
               x = "Date time",
               y = "Concentration",
               color = "Pollutants",
               title = "Pollutant concentration for the next 5 days"
-            ) + facet_wrap(~Pollutants, scales = 'free')
+            ) + ggplot2::facet_wrap(~Pollutants, scales = 'free')
 
         },
         error = function(er) {
