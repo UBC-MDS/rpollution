@@ -100,8 +100,6 @@ get_pollution_forecast(49.28, 123.12, api_key)
 ```
 ![](vignettes/forecast_plot.png)
 
-```
-
 ## Documentation
 
 The official documentation is hosted here: https://ubc-mds.github.io/rpollution/
