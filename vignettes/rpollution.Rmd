@@ -1,0 +1,73 @@
+---
+title: "rpollution"
+author: Christopher Alexander, Daniel King, Mel Liow
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{rpollution}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rpollution)
+
+```
+
+```{r setup-hide, echo=FALSE}
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(purl = NOT_CRAN)
+
+my_secrets <- function() {
+  path <- "../config.json"
+  if (!file.exists(path)) {
+    stop("Can't find secret file: '", path, "'")
+  }
+  
+  jsonlite::read_json(path)
+}
+
+api_key <- my_secrets()$api_key
+
+```
+
+## Retrieve historic pollution data with specified date range and location:
+
+```{r historic-example}
+df <- get_pollution_history(1606488670, 1606747870, 49.28, 123.12, api_key)
+```
+
+```{r historic-example-result}
+head(df)
+```
+
+## Generate an interactive map containing current pollution data by location:
+
+```{r current-example}
+pollution_map_plot <- get_air_pollution(49.28, 123.12, api_key)
+
+```
+
+```{r current-example-result, fig.width=7, fig.height=4}
+pollution_map_plot
+```
+
+
+
+## Generate a time-series line chart of forecasted air pollution data:
+
+```{r forecast-example}
+forecast_plot <- get_pollution_forecast(49.28, 123.12, api_key)
+```
+
+```{r forecast-example-result, fig.width=7, fig.height=4}
+forecast_plot
+```
+
+
