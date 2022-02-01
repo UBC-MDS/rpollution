@@ -1,8 +1,3 @@
-#' @import jsonlite
-#' @import httr
-library(jsonlite)
-library(httr)
-
 #' Returns a dataframe of pollution history for a location between
 #' a specified date range.
 #'
@@ -53,12 +48,12 @@ get_pollution_history <- function(start_date, end_date, lat, lon, api_key) {
 
   tryCatch(
     {
-      res <- GET(api_url, query = query)
+      res <- httr::GET(api_url, query = query)
 
       # Stop if response status is not 200
       httr::stop_for_status(res)
 
-      data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
+      data <- jsonlite::fromJSON(content(res, as = "text", encoding = "UTF-8"),
         flatten = TRUE
       )
 
