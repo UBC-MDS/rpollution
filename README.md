@@ -74,9 +74,38 @@ devtools::install_github("UBC-MDS/rpollution")
 1.  Create an [OpenWeather API Key](https://openweathermap.org/appid)
 2.  Install `rpollution`
 
-To use the package, import the package with the following commands:
+To use the package, import the package with the following command:
 
-    library(rpollution)
+``` r
+
+library(rpollution)
+```
+
+**Retrieve historic pollution data with specified date range and location:**
+``` r
+get_pollution_history(1606488670, 1606747870, 49.28, 123.12, api_key)
+```
+
+**Generate an interactive map containing current pollution data by location:**
+
+``` r
+get_air_pollution(49.28, 123.12, api_key, "Current Air Pollution")
+```
+
+![](vignettes/current_plot.png)
+
+**Generate a time-series line chart of forecasted air pollution data:**
+``` r
+get_pollution_forecast(49.28, 123.12, api_key)
+```
+![](vignettes/forecast_plot.png)
+
+```
+
+## Documentation
+
+The official documentation is hosted here: https://ubc-mds.github.io/rpollution/
+
 
 ## Contributors
 
