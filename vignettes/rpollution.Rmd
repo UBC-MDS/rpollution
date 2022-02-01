@@ -54,7 +54,7 @@ pollution_map_plot <- get_air_pollution(49.28, 123.12, api_key)
 
 ```
 
-```{r current-example-result, fig.width=7, fig.height=4}
+```{r current-example-result, fig.width=7, fig.height=4, fig.cap = "Map of air pollution" }
 pollution_map_plot
 ```
 
@@ -66,7 +66,7 @@ pollution_map_plot
 forecast_plot <- get_pollution_forecast(49.28, 123.12, api_key)
 ```
 
-```{r forecast-example-result, fig.width=8, fig.height=4}
+```{r forecast-example-result, fig.width=8, fig.height=4, fig.cap = "Air pollution forecast"}
 forecast_plot
 ```
 

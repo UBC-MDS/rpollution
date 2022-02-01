@@ -31,3 +31,4 @@ Suggests:
     rmarkdown,
     knitr
 VignetteBuilder: knitr
+URL: https://ubc-mds.github.io/rpollution
