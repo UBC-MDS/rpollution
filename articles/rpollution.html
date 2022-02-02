@@ -72,6 +72,9 @@
     
 <p>This document introduces you to <code>rpollution</code>’s functions, and shows you how to use them with data fetched from <a href="https://openweathermap.org/api" class="external-link">OpenWeatherMap API</a>. As these are wrapper functions, usage requires sign up to OpenWeatherMap for free to gain access to an API key.</p>
 <p>For more information about API call limits and API care recommendations please visit the OpenWeather <a href="https://openweathermap.org/appid" class="external-link">how to start</a> page.</p>
+<div class="section level3">
+<h3 id="set-up">Set up<a class="anchor" aria-label="anchor" href="#set-up"></a>
+</h3>
 <p>Each function will require you to pass in your generated API key. This can either be read in from a <code>config.json</code> file or you can pass it in directly as a string. To set it up using a config file create a <code>config.json</code> in the root directory and add your API key like the following:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">{</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a>  <span class="dt">"api_key"</span><span class="fu">:</span> <span class="st">"API_KEY_0001"</span></span>
@@ -88,6 +91,7 @@
 <span class="op">}</span>
 
 <span class="va">api_key</span> <span class="op">&lt;-</span> <span class="fu">my_secrets</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">api_key</span></code></pre></div>
+</div>
 <div class="section level3">
 <h3 id="load-the-library">Load the library<a class="anchor" aria-label="anchor" href="#load-the-library"></a>
 </h3>
