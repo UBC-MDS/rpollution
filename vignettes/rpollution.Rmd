@@ -21,6 +21,8 @@ As these are wrapper functions, usage requires sign up to OpenWeatherMap for fre
 
 For more information about API call limits and API care recommendations please visit the OpenWeather [how to start](https://openweathermap.org/appid) page.
 
+### Set up
+
 Each function will require you to pass in your generated API key. This can either be read 
 in from a `config.json` file or you can pass it in directly as a string.
 To set it up using a config file create a `config.json` in the root directory and add 
