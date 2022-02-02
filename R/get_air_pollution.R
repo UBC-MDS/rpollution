@@ -1,8 +1,6 @@
 #' @import plotly
-#' @import httr
 #' @import tibble
 #' @import tidyr
-library(httr)
 library(plotly)
 library(tibble)
 library(tidyr)
