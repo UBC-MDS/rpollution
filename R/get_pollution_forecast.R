@@ -69,9 +69,9 @@ get_pollution_forecast <- function(lat, lon, api_key) {
                                       values_to = "Concentration")
 
           chart <- ggplot2::ggplot(data, ggplot2::aes(
-            x = dt,
-            y = Concentration,
-            color = Pollutants)) + ggplot2::geom_line() +
+            x = data$dt,
+            y = data$Concentration,
+            color = data$Pollutants)) + ggplot2::geom_line() +
             ggplot2::labs(
               x = "Date time",
               y = "Concentration",

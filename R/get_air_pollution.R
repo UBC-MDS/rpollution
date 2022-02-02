@@ -1,9 +1,7 @@
-#' @import jsonlite
 #' @import plotly
 #' @import httr
 #' @import tibble
 #' @import tidyr
-library(jsonlite)
 library(httr)
 library(plotly)
 library(tibble)
@@ -38,15 +36,15 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
     stop("API Key should be a string")
   }
 
-  if (lat < -90.0 | lat > 90.0){
+  if (lat < -90.0 | lat > 90.0) {
     stop("Enter valid latitude values (Range should be -90<Latitude<90)")
   }
 
-  if (lon < -180.0 | lon > 180.0){
+  if (lon < -180.0 | lon > 180.0) {
     stop("Enter valid longitude values (Range should be -180<Longitude<180)")
   }
 
-  if (!is.character(fig_title)){
+  if (!is.character(fig_title)) {
     stop("Figure title should be a string")
   }
 
@@ -66,36 +64,46 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
       httr::stop_for_status(res)
 
       raw_data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
-                           flatten = TRUE)
+        flatten = TRUE
+      )
 
       data <- tibble(raw_data[["list"]]) %>%
         mutate(lon = raw_data$coord$lon, lat = raw_data$coord$lat) %>%
-        select(-dt, -main.aqi) %>%
+        select(-raw_data[["list"]]$dt, -raw_data[["list"]]$main.aqi) %>%
         rename(
-          CO = components.co,
-          NO = components.no,
-          SO2 = components.so2,
-          PM2.5 = components.pm2_5,
-          PM10 = components.pm10,
-          NH3 = components.nh3,
-          NO2 = components.no2,
-          O3 = components.o3
+          CO = raw_data[["list"]]$components.co,
+          NO = raw_data[["list"]]$components.no,
+          SO2 = raw_data[["list"]]$components.so2,
+          PM2.5 = raw_data[["list"]]$components.pm2_5,
+          PM10 = raw_data[["list"]]$components.pm10,
+          NH3 = raw_data[["list"]]$components.nh3,
+          NO2 = raw_data[["list"]]$components.no2,
+          O3 = raw_data[["list"]]$components.o3
         ) %>%
-        pivot_longer(c(CO, NO, NO2, O3, SO2, PM2.5, PM10, NH3))
+        pivot_longer(c(
+          raw_data[["list"]]$CO,
+          raw_data[["list"]]$NO,
+          raw_data[["list"]]$NO2,
+          raw_data[["list"]]$O3,
+          raw_data[["list"]]$SO2,
+          raw_data[["list"]]$PM2.5,
+          raw_data[["list"]]$PM10,
+          raw_data[["list"]]$NH3
+        ))
 
       g <- list(
-        projection = list(type = 'natural earth')
+        projection = list(type = "natural earth")
       )
 
       fig <- plot_geo(data, lat = ~lat, lon = ~lon)
       fig <- fig %>% add_markers(
         color = ~name,
         size = ~value,
-        text = ~paste(
+        text = ~ paste(
           "Pollutant =",
           name,
           "\n",
-          "Conc. (µg/m^3) =",
+          # "Conc. (µg/m^3) =",
           value,
           "\n",
           "Latitude =",
@@ -104,24 +112,25 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
           "Longitude =",
           lon
         ),
-        hoverinfo= "text"
+        hoverinfo = "text"
       )
 
       fig <- fig %>%
-        layout(title = list(
-          text = fig_title,
-          x= 0,
-          y = 1,
-          xref = "paper",
-          yref = "paper",
-          yanchor = "bottom",
-          xanchor = "left"
-        ),
-        legend = list(
-          yanchor = "center",
-          y = 0.5,
-          title = list(text = "Pollutant")
-        )
+        layout(
+          title = list(
+            text = fig_title,
+            x = 0,
+            y = 1,
+            xref = "paper",
+            yref = "paper",
+            yanchor = "bottom",
+            xanchor = "left"
+          ),
+          legend = list(
+            yanchor = "center",
+            y = 0.5,
+            title = list(text = "Pollutant")
+          )
         )
 
       fig
