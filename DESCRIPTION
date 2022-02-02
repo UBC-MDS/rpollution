@@ -29,6 +29,7 @@ Imports:
     testthat
 Suggests: 
     rmarkdown,
-    knitr
+    knitr,
+    covr
 VignetteBuilder: knitr
 URL: https://ubc-mds.github.io/rpollution

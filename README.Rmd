@@ -8,6 +8,7 @@ output: github_document
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/UBC-MDS/rpollution/workflows/R-CMD-check/badge.svg)](https://github.com/UBC-MDS/rpollution/actions)
 <!-- badges: end -->
 
 `rpollution` is an R package for visualizing or obtaining future, historic and current air pollution data using the [OpenWeather API](https://openweathermap.org). Our goal is to enable users the ability to explore air pollution levels in locations around the world by providing visual charts and graphs. We make the data accessible and easy to comprehend in just a few lines of code.

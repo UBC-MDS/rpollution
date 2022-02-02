@@ -4,6 +4,8 @@
 # rpollution
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/UBC-MDS/rpollution/workflows/R-CMD-check/badge.svg)](https://github.com/UBC-MDS/rpollution/actions)
 <!-- badges: end -->
 
 `rpollution` is an R package for visualizing or obtaining future,
@@ -104,6 +106,7 @@ get_pollution_forecast(49.28, 123.12, api_key)
 
 The official documentation is hosted here: https://ubc-mds.github.io/rpollution/
 
+    library(rpollution)
 
 ## Contributors
 
