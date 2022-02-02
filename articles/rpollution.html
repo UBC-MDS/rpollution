@@ -100,7 +100,7 @@
 <p>This function fetches the historic air pollution levels based on a location. It requires a start and end date and re-formats the data into a more usable data frame with the values of the polluting gases over the specified date range.</p>
 <p>Note: Historical data is accessible from 27th November 2020</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_pollution_history.html">get_pollution_history</a></span><span class="op">(</span><span class="fl">1606488670</span>, <span class="fl">1606747870</span>, <span class="fl">49.28</span>, <span class="fl">123.12</span>, <span class="st">"api_key"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_pollution_history.html">get_pollution_history</a></span><span class="op">(</span><span class="fl">1606488670</span>, <span class="fl">1606747870</span>, <span class="fl">49.28</span>, <span class="fl">123.12</span>, <span class="va">api_key</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
 <span class="co">#&gt;   X         dt main.aqi components.co components.no components.no2</span>
