@@ -106,8 +106,6 @@ get_pollution_forecast(49.28, 123.12, api_key)
 
 The official documentation is hosted here: https://ubc-mds.github.io/rpollution/
 
-    library(rpollution)
-
 ## Contributors
 
 -   Christopher Alexander (@christopheralex)
