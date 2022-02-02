@@ -92,13 +92,13 @@ get_pollution_history(1606488670, 1606747870, 49.28, 123.12, api_key)
 get_air_pollution(49.28, 123.12, api_key, "Current Air Pollution")
 ```
 
-![](vignettes/current_plot.png)
+![](man/figures/current_plot.png)
 
 **Generate a time-series line chart of forecasted air pollution data:**
 ``` r
 get_pollution_forecast(49.28, 123.12, api_key)
 ```
-![](vignettes/forecast_plot.png)
+![](man/figures/forecast_plot.png)
 
 ## Documentation
 

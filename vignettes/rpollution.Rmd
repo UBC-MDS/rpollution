@@ -50,24 +50,6 @@ api_key <- my_secrets()$api_key
 ### Load the library
 ```{r setup, warning = FALSE}
 library(rpollution)
-
-```
-
-```{r setup-hide, echo=FALSE}
-NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
-knitr::opts_chunk$set(purl = NOT_CRAN)
-
-my_secrets <- function() {
-  path <- "../config.json"
-  if (!file.exists(path)) {
-    stop("Can't find secret file: '", path, "'")
-  }
-  
-  jsonlite::read_json(path)
-}
-
-api_key <- my_secrets()$api_key
-
 ```
 
 ### Retrieve historic pollution data with specified date range and location:
@@ -77,8 +59,12 @@ with the values of the polluting gases over the specified date range.
 
 Note: Historical data is accessible from 27th November 2020
 
-```{r historic-example}
-df <- get_pollution_history(1606488670, 1606747870, 49.28, 123.12, api_key)
+```{r historic-example, eval=FALSE}
+df <- get_pollution_history(1606488670, 1606747870, 49.28, 123.12, "api_key")
+```
+
+```{r, echo=FALSE}
+df <- read.csv("../man/data/pollution_data.csv")
 ```
 
 ```{r historic-example-result}
@@ -93,16 +79,17 @@ This coloured map is interactive and displays the varying regions of air quality
 Additionally, you can add a title to the plot by passing the string as the 
 final argument.
 
-```{r current-example}
+```{r current-example, eval=FALSE}
 pollution_map_plot <- get_air_pollution(49.28, 123.12, api_key, "Current Air Pollution")
-
 ```
 
-```{r current-example-result, fig.width=7, fig.height=4 }
+```{r current-example-result, fig.width=7, fig.height=4, eval=FALSE}
 pollution_map_plot
 ```
 
-
+```{r, echo=FALSE, out.width="50%"}
+knitr::include_graphics("../man/figures/current_plot.png")
+```
 
 ### Generate a time-series line chart of forecasted air pollution data:
 This function will show you air pollution data for the next 5 days for a specific 
@@ -110,12 +97,18 @@ location. It will return a time series plot for each of the 8 air pollutants and
 show the varying levels of predicted pollution over time.
 
 
-```{r forecast-example}
+```{r forecast-example, eval=FALSE}
 forecast_plot <- get_pollution_forecast(49.28, 123.12, api_key)
 ```
 
-```{r forecast-example-result, fig.width=8, fig.height=4}
+```{r forecast-example-result, fig.width=8, fig.height=4, eval=FALSE}
 forecast_plot
 ```
+
+```{r, echo=FALSE, out.width="50%"}
+knitr::include_graphics("../man/figures/forecast_plot.png")
+```
+
+
 
 
