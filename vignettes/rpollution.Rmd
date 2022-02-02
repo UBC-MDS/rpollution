@@ -60,7 +60,7 @@ with the values of the polluting gases over the specified date range.
 Note: Historical data is accessible from 27th November 2020
 
 ```{r historic-example, eval=FALSE}
-df <- get_pollution_history(1606488670, 1606747870, 49.28, 123.12, "api_key")
+df <- get_pollution_history(1606488670, 1606747870, 49.28, 123.12, api_key)
 ```
 
 ```{r, echo=FALSE}
