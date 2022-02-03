@@ -45,7 +45,7 @@ get_pollution_forecast <- function(lat, lon, api_key) {
       # Stop if response status is not 200
       httr::stop_for_status(res)
 
-      data <- jsonlite::fromJSON(content(res, as = "text", encoding = "UTF-8"),
+      data <- jsonlite::fromJSON(httr::content(res, as = "text", encoding = "UTF-8"),
                        flatten = TRUE
                        )
       data <- data$list
@@ -69,9 +69,9 @@ get_pollution_forecast <- function(lat, lon, api_key) {
                                       values_to = "Concentration")
 
           chart <- ggplot2::ggplot(data, ggplot2::aes(
-            x = dt,
-            y = Concentration,
-            color = Pollutants)) + ggplot2::geom_line() +
+            x = data$dt,
+            y = data$Concentration,
+            color = data$Pollutants)) + ggplot2::geom_line() +
             ggplot2::labs(
               x = "Date time",
               y = "Concentration",
