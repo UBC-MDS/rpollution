@@ -1,10 +1,3 @@
-#' @import plotly
-#' @import tibble
-#' @import tidyr
-library(plotly)
-library(tibble)
-library(tidyr)
-
 #' Returns a map depicting varying pollution levels for a specified location
 #'
 #' The function makes an API request to the OpenWeather Air Pollution API
@@ -56,52 +49,52 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
 
   tryCatch(
     {
-      res <- GET(api_url, query = query)
+      res <- httr::GET(api_url, query = query)
 
       # Stop if response status is not 200
       httr::stop_for_status(res)
 
-      raw_data <- fromJSON(content(res, as = "text", encoding = "UTF-8"),
+      raw_data <- jsonlite::fromJSON(httr::content(res, as = "text", encoding = "UTF-8"),
         flatten = TRUE
       )
 
-      data <- tibble(raw_data[["list"]]) %>%
-        mutate(lon = raw_data$coord$lon, lat = raw_data$coord$lat) %>%
-        select(-raw_data[["list"]]$dt, -raw_data[["list"]]$main.aqi) %>%
-        rename(
-          CO = raw_data[["list"]]$components.co,
-          NO = raw_data[["list"]]$components.no,
-          SO2 = raw_data[["list"]]$components.so2,
-          PM2.5 = raw_data[["list"]]$components.pm2_5,
-          PM10 = raw_data[["list"]]$components.pm10,
-          NH3 = raw_data[["list"]]$components.nh3,
-          NO2 = raw_data[["list"]]$components.no2,
-          O3 = raw_data[["list"]]$components.o3
+      data <- tibble::tibble(raw_data[["list"]]) %>%
+        dplyr::mutate(lon = raw_data$coord$lon, lat = raw_data$coord$lat) %>%
+        dplyr::select(-dt, -main.aqi) %>%
+        dplyr::rename(
+          CO = components.co,
+          NO = components.no,
+          SO2 = components.so2,
+          PM2.5 = components.pm2_5,
+          PM10 = components.pm10,
+          NH3 = components.nh3,
+          NO2 = components.no2,
+          O3 = components.o3
         ) %>%
-        pivot_longer(c(
-          raw_data[["list"]]$CO,
-          raw_data[["list"]]$NO,
-          raw_data[["list"]]$NO2,
-          raw_data[["list"]]$O3,
-          raw_data[["list"]]$SO2,
-          raw_data[["list"]]$PM2.5,
-          raw_data[["list"]]$PM10,
-          raw_data[["list"]]$NH3
+        tidyr::pivot_longer(c(
+          CO,
+          NO,
+          NO2,
+          O3,
+          SO2,
+          PM2.5,
+          PM10,
+          NH3
         ))
 
       g <- list(
         projection = list(type = "natural earth")
       )
 
-      fig <- plot_geo(data, lat = ~lat, lon = ~lon)
-      fig <- fig %>% add_markers(
+      fig <- plotly::plot_geo(data, lat = ~lat, lon = ~lon)
+      fig <- fig %>% plotly::add_markers(
         color = ~name,
         size = ~value,
         text = ~ paste(
           "Pollutant =",
           name,
           "\n",
-          # "Conc. (µg/m^3) =",
+          "Conc. (ug/m^3) =",
           value,
           "\n",
           "Latitude =",
@@ -114,7 +107,7 @@ get_air_pollution <- function(lat, lon, api_key, fig_title = "") {
       )
 
       fig <- fig %>%
-        layout(
+        plotly::layout(
           title = list(
             text = fig_title,
             x = 0,

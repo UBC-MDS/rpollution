@@ -26,7 +26,8 @@ Imports:
     httr,
     jsonlite,
     magrittr,
-    testthat
+    testthat,
+    dplyr
 Suggests: 
     rmarkdown,
     knitr,

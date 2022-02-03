@@ -53,7 +53,7 @@ get_pollution_history <- function(start_date, end_date, lat, lon, api_key) {
       # Stop if response status is not 200
       httr::stop_for_status(res)
 
-      data <- jsonlite::fromJSON(content(res, as = "text", encoding = "UTF-8"),
+      data <- jsonlite::fromJSON(httr::content(res, as = "text", encoding = "UTF-8"),
         flatten = TRUE
       )
 

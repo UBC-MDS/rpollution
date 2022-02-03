@@ -1,0 +1,22 @@
+utils::globalVariables(
+  c(
+    "dt",
+    "main.aqi",
+    "components.co",
+    "components.no",
+    "components.no2",
+    "components.o3",
+    "components.so2",
+    "components.pm2_5",
+    "components.pm10",
+    "components.nh3",
+    "CO",
+    "NO",
+    "NO2",
+    "O3",
+    "SO2",
+    "PM2.5",
+    "PM10",
+    "NH3"
+  )
+)
