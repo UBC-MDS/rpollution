@@ -123,4 +123,4 @@ By contributing to this project, you agree to abide by its terms.
 ## License
 
 `rpollution` was created by Christopher Alexander, Daniel King, Mel
-Liow. It is licensed under the terms of the [Hippocratic License 3.0.](https://github.com/UBC-MDS/rpollution/blob/main/LICENSE.md)
+Liow. It is licensed under the terms of the [Hippocratic License 3.0](https://github.com/UBC-MDS/rpollution/blob/main/LICENSE.md).
