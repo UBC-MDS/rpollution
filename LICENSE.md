@@ -1,6 +1,6 @@
-rpyllution Copyright 2022 Christopher Alexander, Daniel King, Mel Liow
+# HIPPOCRATIC LICENSE
 
-**HIPPOCRATIC LICENSE**
+rpyllution Copyright 2022 Christopher Alexander, Daniel King, Mel Liow
 
   **Version 3.0, October 2021**
 
