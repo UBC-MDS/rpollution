@@ -3,7 +3,7 @@ pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   rpollution: rpollution.html
-last_built: 2022-02-05T17:57Z
+last_built: 2022-02-05T19:44Z
 urls:
   reference: https://ubc-mds.github.io/rpollution/reference
   article: https://ubc-mds.github.io/rpollution/articles
