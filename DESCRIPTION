@@ -1,6 +1,6 @@
 Package: rpollution
 Title: Visualises future, historic and current air pollution data
-Version: 0.0.0.9000
+Version: 1.2.0
 Authors@R: c(
     person("Christopher", "Alexander", , "christopher.a0@gmail.com", role = c("aut")),
     person("Daniel", "King", , "dnlkng13@gmail.com", role = c("aut", "cre")),
@@ -12,7 +12,7 @@ Description: This package enables users to explore air pollution levels in
     Carbon monoxide (CO), Nitrogen monoxide (NO), Nitrogen dioxide (NO2),
     Ozone (O3), Sulphur dioxide (SO2), Ammonia (NH3),
     and particulates (PM2.5 and PM10).
-License: MIT + file LICENSE
+License: Hippocratic License 3.0 + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
